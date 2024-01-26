@@ -1,6 +1,6 @@
 <script>
-import { mapState, mapActions } from "pinia";
-import { useProductsStore } from "../../stores/products.js";
+import { mapState, mapActions } from 'pinia'
+import { useProductsStore } from '../../stores/products.js'
 
 export default {
     name: 'ProductsTable',
@@ -33,10 +33,10 @@ export default {
         emitDeleteProduct(product) {
             this.$emit("deleteProduct", product)
         },
-        ...mapActions(useProductsStore, ["setEditProductMode","setProductToEditId"])
+        ...mapActions(useProductsStore, ["setEditProductMode", "setProductToEditId"])
     },
     computed: {
-        ...mapState(useProductsStore,["getProducts"]),
+        ...mapState(useProductsStore, ["getProducts"]),
         vtaCalculation: () => (price, vta) => {
             if (typeof price != "number" ) {
                 /* throw new Error('Parameter is not a number!') */
@@ -72,7 +72,7 @@ export default {
             </thead>
             <tbody class="table-group-divider">
                 <tr 
-                    v-for="item in products"
+                    v-for="item in getProducts"
                     :key="item.id"
                 >
                     <td>{{ item.name }}</td>

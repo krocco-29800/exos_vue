@@ -1,6 +1,7 @@
 <script>
-import { mapState, mapActions } from "pinia";
-import { useProductsStore } from "../../stores/products.js";
+import { mapState, mapActions } from 'pinia'
+import { useProductsStore } from '../../stores/products.js'
+
 export default {
   name: "ProductForm",
   emits: ["updateProduct"],
@@ -10,14 +11,13 @@ export default {
   },
   watch: {
     getProductToEditId(newValue, oldValue) {
-      if(newValue, oldValue) {
-          if (
+      if (newValue, oldValue) {
+        if (
           this.getEditProductMode && newValue != null && !this.confirmEditMode ||
           this.getEditProductMode && newValue != this.currentProductId
         ) {
-          // Importer le produit selectionner
+          // IMPORTER LE PRODUIT SELECTIONNÉ
           const product = this.getProductById(this.getProductToEditId)
-          console.log("product : ", product)
           this.name = product.name;
           this.description = product.description;
           this.price = product.price;
@@ -37,7 +37,7 @@ export default {
       vta: 20,
       category: "sweet",
       confirmEditMode: false,
-      currentProductId: null,
+      currentProductId: null
     };
   },
   props: {
@@ -53,7 +53,6 @@ export default {
   methods: {
     submitForm() {
       if (this.getEditProductMode && this.getProductToEditId != null) {
-        console.log("Updatttteeuuuhh !!!")
         const product = {
           id: this.getProductToEditId,
           name: this.name,
@@ -62,10 +61,11 @@ export default {
           vta: this.vta,
           category: this.category,
         };
-        // this.$emit("updateProduct", product);
+        console.log("category", this.category)
+        /* this.$emit("updateProduct", product); */
         this.updateProduct(product)
-        this.confirmEditMode = false;
-        this.currentProductId = null;
+        this.confirmEditMode = false
+        this.currentProductId = null
       } else {
         const product = {
           id: Math.floor(Math.random() * Date.now()),
@@ -77,20 +77,29 @@ export default {
         };
         this.addProduct(product)
       }
+      this.resetForm()
     },
+    resetForm() {
+      this.name = null
+      this.description = null
+      this.price = 0
+      this.vta =  20
+      this.category = null
+    },
+    /* version avec Alias */
     ...mapActions(useProductsStore, {
       addProduct: "addProduct",
-      updateProduct: "updateProduct"
+      updateProduct: "updateProduct",
     })
-    /* version sans alias*/
-    /*...mapActions(useProductsStore, ["addProduct", "updateProduct"])*/
+    /* version sans Alias */
+    /* ...mapActions(useProductsStore, ["addProduct", "updateProduct"]) */
   },
   computed: {
     ...mapState(useProductsStore, [
       "getEditProductMode",
-      "getProductById",
-      "getProductToEditId"
-    ])
+      "getProductToEditId" ,
+      "getProductById"
+    ]),
   }
 };
 </script>
@@ -110,7 +119,7 @@ export default {
           v-model="name"
           required
         />
-        <div id="name-help" class="form-text">productorUn Nom!</div>
+        <div id="name-help" class="form-text">Un Nom!</div>
       </div>
       <div class="mb-3">
         <label for="price" class="form-label">Prix</label>

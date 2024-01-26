@@ -14,7 +14,8 @@ export const useProductsStore = defineStore('products', {
     },
     getters: {
         getProducts : (state) => state.products,
-        geteditProductMode : (state) => state.editProductMode,
+        getEditProductMode : (state) => state.editProductMode,
+        getProductToEditId: (state) => state.productToEditId,
         getProductById: (state) => (id) => {
             return state.products.find(product => product.id === id)
         } 
@@ -31,9 +32,11 @@ export const useProductsStore = defineStore('products', {
             this.resetEditionMode()
         },
         setEditProductMode(mode) {
+            console.log("mode edition :",mode)
             this.editProductMode = mode
         },
         setProductToEditId(id) {
+            console.log("Product Id", id)
             this.productToEditId = id
         },
         resetEditionMode() {
@@ -41,4 +44,4 @@ export const useProductsStore = defineStore('products', {
             this.editProductMode = false
         }
     }
-})
+}) 
