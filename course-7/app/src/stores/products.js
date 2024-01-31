@@ -1,18 +1,16 @@
 import { defineStore } from 'pinia'
-/* Importation des donnÃ©es depuis un fichier json - La conversion est automatique */
+/* Importation des données depuis un fichier json - La conversion est automatique */
 /* import products from "../data/productList.json" */
 /* @ est un raccourcis pour partir du dossier src */
 import products from "@/data/productList.json"
 
 const STORE_NAME = 'products'
-const STORE_LOCALE_STORRAGE_KEY = 'products'
+const STORE_LOCALE_STORAGE_KEY = 'products'
 
 const getDefaultState = () => products
-
 const getCurrentState = () => {
-const localeData = localStorage.getItem(STORE_LOCALE_STORRAGE_KEY)
-
-return localeData ? JSON.parse(localeData) : getDefaultState()
+  const localeData = localStorage.getItem(STORE_LOCALE_STORAGE_KEY)
+  return localeData ? JSON.parse(localeData) : getDefaultState()
 }
 
 export const useProductsStore = defineStore(STORE_NAME, {
@@ -32,12 +30,12 @@ export const useProductsStore = defineStore(STORE_NAME, {
       }
     },
     actions: {
-      upDateLocaleStorage() {
-        localStorage.setItem(STORE_LOCALE_STORRAGE_KEY, JSON.stringify(this.products))
+      updateLocaleStorage() {
+        localStorage.setItem(STORE_LOCALE_STORAGE_KEY, JSON.stringify(this.products))
       },
       addProduct(product) {
         this.products.push(product)
-        this.upDateLocaleStorage()
+        this.updateLocaleStorage()
       },
       updateProduct(product) {
         console.log("update in store", product)
@@ -45,13 +43,13 @@ export const useProductsStore = defineStore(STORE_NAME, {
             return el.id === product.id
         })
         this.products[index] = product
-        this.upDateLocaleStorage()
+        this.updateLocaleStorage()
         this.resetEditionMode()
       },
       deleteProduct(productId) {
         /* Ici on va parcourir le tableau products et supprimer le produit transmis */
         this.products = this.products.filter(el => el.id != productId)
-        this.upDateLocaleStorage()
+        this.updateLocaleStorage()
       },
       setEditProductMode(mode) {
         console.log("mode Edition : ", mode)

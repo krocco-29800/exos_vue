@@ -1,6 +1,6 @@
 <script>
 import { mapState, mapActions } from 'pinia'
-import { useProductsStore } from '../../stores/'
+import { useProductsStore } from '../../stores'
 
 export default {
   name: "ProductForm",
