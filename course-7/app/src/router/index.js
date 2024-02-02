@@ -7,9 +7,14 @@ import sitemap from '../data/routesList.json'
 // We'll talk about nested routes later.
 const routes = [
     {
+        path: '/homepage', 
+        redirect: '/'
+    },
+    {
         name:  "HomePage",
         path: '/', 
-        component: HomePage 
+        component: HomePage,
+        alias: ['/home', '/chewbaka']
     }
   ]
 
@@ -36,6 +41,8 @@ function setRoute(el, level = null) {
         hash: el.hash ? el.hash : null,
         sensitive: el.sensitive ? el.sensitive : false,
         strict: el.strict ? el.strict : false,
+        alias: el.alias ? el.alias : [],
+        redirect: el.redirect ? el.redirect : null
       }
     if (level == null) {
         newRoute.children = el.children ? getChildrenData(el.children) : null
